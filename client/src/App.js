@@ -1,7 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import Panchat from "./components/panchatForm";
-import Chatroom from "./components/chatroom"
+import Chatroom from "./components/Chatroom"
 
 // import { useEffect, useState } from "react";
 // import io from "socket.io-client";
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/upload-profile" element={<Panchat type='profile' />} />
         <Route exact path="/reset-password" element={<Panchat type='reset' />} />
       </Routes>
+      <ToastContainer/>
     </Router>
   );
 }

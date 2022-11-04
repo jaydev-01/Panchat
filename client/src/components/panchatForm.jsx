@@ -1,9 +1,9 @@
 import React from 'react'
-import PasswordReset from './forms/resetPassword'
-import Login from './forms/login'
-import Signup from './forms/signup'
-import PasswordForget from './forms/forgetPassword'
-import ProfileUpload from './forms/profilePic'
+import PasswordReset from './forms/ResetPassword'
+import Login from './forms/Login'
+import Signup from './forms/Signup'
+import PasswordForget from './forms/ForgetPassword'
+import ProfileUpload from './forms/ProfilePic'
 
 export default function panchatForm(props) {
     const { type } = props;
@@ -11,7 +11,6 @@ export default function panchatForm(props) {
         return (
             <div className="main-container">
                 <div className="login-form-container">
-                    <div className="image-div div-child image"></div>
                     <div className="login-form div-child">
                         <PasswordReset />
                     </div>
@@ -22,7 +21,6 @@ export default function panchatForm(props) {
         return (
             <div className="main-container">
                 <div className="login-form-container">
-                    <div className="image-div div-child image"></div>
                     <div className="login-form div-child">
                         <Login />
                     </div>
@@ -33,7 +31,6 @@ export default function panchatForm(props) {
         return (
             <div className="main-container">
                 <div className="login-form-container">
-                    <div className="image-div div-child image"></div>
                     <div className="login-form div-child">
                         <Signup />
                     </div>
@@ -44,7 +41,6 @@ export default function panchatForm(props) {
         return (
             <div className="main-container">
                 <div className="login-form-container">
-                    <div className="image-div div-child image"></div>
                     <div className="login-form div-child">
                         <PasswordForget />
                     </div>
@@ -55,7 +51,6 @@ export default function panchatForm(props) {
         return (
             <div className="main-container">
                 <div className="login-form-container">
-                    <div className="image-div div-child image"></div>
                     <div className="login-form div-child">
                         <ProfileUpload />
                     </div>

@@ -21,8 +21,8 @@
 
 
 .login-form-container{
-  width: 70%;
-  height: 90vh;
+  width: 100%;
+  height: 100vh;
   position: absolute;
   top: 50%; 
   left: 50%;
@@ -30,14 +30,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-radius: 10px;
-  box-shadow: 5px 5px 40px 5px var(--shadowColor);
+  overflow: hidden;
 }
 
-.image-div{
-  background-image: url("../public/Chit_Chat.png");
-  background-repeat: no-repeat;
-}
 
 .div-child{
   flex : 1;
@@ -63,7 +58,7 @@
   text-decoration: none;
   font-size: 10px;
   color: var(--colorRed);
-  margin-left: -45%;
+  margin-left: -25%;
 }
 
 .new-ac-span{
@@ -103,10 +98,10 @@
 
 .input{
  position: relative;
- width: 60%;
+ width: 30%;
  background-color: var(--borderColorGray);
  font-size: 10px;
- padding: 10px;
+ padding: 15px;
  margin: 10px;
  border-radius: 10px;
  outline: none;
@@ -114,10 +109,10 @@
 }
 
 .btn{
-  width: 40%;
+  width: 32%;
   background-color: var(--colorRed);
   margin: 20px 10px;
-  padding: 6px;
+  padding: 12px;
   border-radius: 10px;
   color: var(--bgColor);
   font-size: 15px;
@@ -129,13 +124,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  margin: 3%;
+  margin: 3% 40%;
 }
 
 .btn1{
  background-color: var(--colorRed);
  margin: 20px 10px;
- padding: 6px 10px;
+ padding: 10px;
  border-radius: 10px;
  color: var(--bgColor);
  font-size: 15px;
@@ -497,6 +492,7 @@
   margin: auto;
   overflow: hidden;
   border: 1px solid var(--colorRed);
+  cursor: pointer;
 }
 
 .profile-pic1{
@@ -584,7 +580,10 @@
   height: 100%;
   border-radius: 50px;
   transition: 0.5s; 
-  display: none; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* display: none;  */
 }
 
 .no-chat-logo{
@@ -735,6 +734,20 @@
 
 
 @media only screen and (max-width:912px){
+  .inRow{
+    margin: 3% 25%;
+  }
+  .login-span a{
+    margin-left: -48%;
+  }
+  .input{
+    width: 60%;
+  }
+
+  .btn{
+    width: 63.5%;
+  }
+
   .show-backBtn{
      display: block;
   }
@@ -793,8 +806,23 @@
 }
 
 @media only screen and (max-width: 600px) {
+
+  .inRow{
+    margin: 0;
+    width: 100%;
+    justify-content: space-between;
+    bottom: 0;
+  }
+
+  .login-span a{
+    margin-left: -38%;
+  }
   .show-backBtn{
     display: block;
+ }
+
+ .btn{
+  width: 65.5%;
  }
 
  .open-full-chat-room{
