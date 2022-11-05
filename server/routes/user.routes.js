@@ -10,5 +10,9 @@ module.exports = app => {
     router.post('/send-email',UserController.validateEmailAndSendResetLink);
     router.post('/reset-password', UserController.UpdatePassword);
 
+    // profile
+    router.get('/get-user-detail', middleware, UserController.getUserDetail);
+    router.post('/update-profile', middleware, UserController.updateProfile);
+
     app.use('/api/panchat/', router);
 }

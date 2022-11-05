@@ -1,6 +1,28 @@
 import React from 'react'
 
+import { useState, useEffect } from 'react';
+import io from "socket.io-client";
+
+const socket = io.connect("http://localhost:3032")
+
 export default function UserChatRoom() {
+
+  const [message, setMessage] = useState("");
+  const [chat, setChat] = useState([]);
+  const [userName,setUserName] = useState("jaydev");
+
+  const sendChat = (e) => {
+    e.preventDefault();
+    socket.emit("chat", { message, userName });
+    setMessage("");
+  };
+
+  useEffect(() => {
+    socket.on("chat", (payload) => {
+      setChat([...chat, payload]);
+    });
+  });
+
   const senderMenu = () => {
     document.querySelector('.sender-setting-div').classList.toggle("show-sender-setting-div");
   }
@@ -32,12 +54,28 @@ export default function UserChatRoom() {
         </div>
       </div>
       <div className="room">
-
+      {chat.map((payload, index) => {
+          return (
+            <p key={index}>
+              {payload.message}: <span>id: {payload.userName}</span>
+            </p>
+          );
+        })}
       </div>
       <div className="msg-writer">
         <form action="" className="msg-writer-box">
-          <input type="text" className="msgBox" placeholder="Message" />
-          <a href='#' className="sendBtn">
+
+          <input 
+          type="text" 
+          className="msgBox" 
+          placeholder="Message"
+          value={message}
+          onChange={(e) => {
+               setMessage(e.target.value);
+            }}
+           />
+
+          <a href='#' className="sendBtn" onClick={sendChat}>
             Send
           </a>
         </form>

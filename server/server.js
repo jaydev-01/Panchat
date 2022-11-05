@@ -3,6 +3,13 @@ const app = express();
 const cors = require("cors");
 const dotenv = require('dotenv');
 dotenv.config();
+const server = require("http").createServer(app);
+
+const io = require("socket.io")(server, {
+    cors : {
+        origin : "*"
+    }
+});
 
 
 app.use(express.json());
@@ -18,6 +25,16 @@ app.use(cors(corsOptions));
 // const userRoutes = require("./routes/userRouter")
 
 
+io.on("connection", (socket) => {
+    console.log("What is socket : ", socket);
+    console.log("Socket is active to be connected");
+
+    socket.on("chat", (payload) => {
+        console.log("What is payload", payload);
+        io.emit("chat", payload);
+    })
+})
+
 const db = require('./models');
 db.mongoose.connect(db.url, {
     useNewUrlParser : true,
@@ -32,6 +49,6 @@ db.mongoose.connect(db.url, {
 
 require('./routes/user.routes')(app);
 
-app.listen(process.env.PORT, ()=>{
+server.listen(process.env.PORT, ()=>{
     console.log("Active");
 });

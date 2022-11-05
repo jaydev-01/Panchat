@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs');
 const transport = require('../helpers/mailer');
 const { response } = require('express');
+const { equal } = require('assert');
 
 exports.signup = async (req,res) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -230,7 +231,7 @@ exports.saveImage = async (req,res) => {
                 res.status(300).send({
                     success : false,
                     data : null,
-                    message : "User Not Found!"
+                    message : "Invalid Token"
                 })
             }
         }).catch(error => {
@@ -245,7 +246,90 @@ exports.saveImage = async (req,res) => {
         res.status(300).send({
             success : false,
             data : null,
-            message : "Invalid Token"
+            message : "Re-login"
         })
+    }
+}
+
+exports.getUserDetail = async (req,res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    const user = req.user;
+
+    if(user){
+        Users.findOne({_id : user.id})
+        .then((result) => {
+            // console.log(result);
+            if(result != null){
+                res.status(200).send({
+                    success : true,
+                    data : result,
+                    message : "User detail get Successfully"
+                })
+            }else{
+                res.status(300).send({
+                    success : false,
+                    data : null,
+                    message : "Re-login"
+                })
+            }
+        })
+        .catch(error => {
+            res.status(302).send({
+                success : false,
+                data : null,
+                message : error.message || "Some error occure in finding user",
+            })
+        })
+
+    }else{
+        res.status(300).send({
+            success : false,
+            data : null,
+            message : "Re-login"
+        })
+    }
+}
+
+exports.updateProfile = async (req,res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+    const user = req.user;
+
+    if(user){
+        const checkUser = await Users.findOne({_id : user.id});
+        if(checkUser !== null){
+            Users.findByIdAndUpdate(user.id,{name : req.body.name, email : req.body.email, pic : req.body.pic})
+            .then(async (data) => {
+                const updatedData = await Users.findOne({_id : data._id});
+                res.status(200).send({
+                    success : true,
+                    data : updatedData,
+                    message : "Profile Updated Successfully!"
+                }) 
+            })
+            .catch((error) => {
+                res.status(300).send({
+                    success : false,
+                    data : null,
+                    message : error.message || "Some error occured!"
+                }) 
+            })
+
+        }else{
+            res.status(300).send({
+                success : false,
+                data : null,
+                message : "Invalid-token"
+            }) 
+        }
+    }else{
+        res.status(300).send({
+            success : false,
+            data : null,
+            message : "Re-login"
+        }) 
     }
 }
